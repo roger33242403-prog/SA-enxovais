@@ -9,13 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --ouro:#C9A84C;--ouro-escuro:#9A7730;--escuro-1:#0D0D0D;--escuro-2:#141414;
-      --escuro-3:#1C1C1C;--escuro-4:#252525;--escuro-5:#2E2E2E;--texto:#E8E0D0;
-      --texto-suave:#A09880;--branco:#F5F0E8;
-      --fonte-titulo:'Cormorant Garamond',serif;--fonte-corpo:'Jost',sans-serif;
-      --sombra-ouro:0 0 30px rgba(201,168,76,0.15);--transicao:all 0.3s ease;
-    }
+    :root{--ouro:#C9A84C;--ouro-escuro:#9A7730;--escuro-1:#0D0D0D;--escuro-2:#141414;--escuro-3:#1C1C1C;--escuro-4:#252525;--escuro-5:#2E2E2E;--texto:#E8E0D0;--texto-suave:#A09880;--branco:#F5F0E8;--fonte-titulo:'Cormorant Garamond',serif;--fonte-corpo:'Jost',sans-serif;--sombra-ouro:0 0 30px rgba(201,168,76,0.15);--transicao:all 0.3s ease}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--escuro-1);color:var(--texto);font-family:var(--fonte-corpo);line-height:1.7;-webkit-font-smoothing:antialiased}
@@ -25,7 +19,6 @@
     .separador{display:flex;align-items:center;gap:16px;margin:0 auto 48px;max-width:320px}
     .separador::before,.separador::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--ouro),transparent)}
     .separador span{color:var(--ouro);font-size:1.2rem}
-
     .header{background:var(--escuro-2);border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:100}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;max-width:1100px;margin:0 auto}
     .logo{font-family:var(--fonte-titulo);font-size:clamp(1.5rem,5vw,2.2rem);font-weight:700;color:var(--ouro);line-height:1}
@@ -33,7 +26,6 @@
     .btn-wpp{display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:10px 18px;border-radius:50px;font-size:0.85rem;font-weight:600;transition:var(--transicao);white-space:nowrap}
     .btn-wpp:hover{background:#1ebe5d;transform:translateY(-1px)}
     .btn-wpp svg{width:18px;height:18px;flex-shrink:0}
-
     .hero{text-align:center;padding:80px 20px 64px;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.09) 0%,transparent 70%),var(--escuro-1)}
     .hero-tagline{font-size:0.75rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ouro);margin-bottom:16px}
     .hero h1{font-family:var(--fonte-titulo);font-size:clamp(2.2rem,8vw,4.5rem);font-weight:600;line-height:1.1;color:var(--branco);margin-bottom:20px}
@@ -41,19 +33,16 @@
     .hero p{max-width:520px;margin:0 auto 36px;color:var(--texto-suave);font-size:1rem}
     .btn-hero{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);font-weight:700;font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;padding:16px 36px;border-radius:4px;transition:var(--transicao);box-shadow:0 4px 24px rgba(201,168,76,0.3)}
     .btn-hero:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.45)}
-
     .secao-categorias{padding:20px 20px 0;background:var(--escuro-2)}
     .categorias-nav{display:flex;gap:10px;max-width:1100px;margin:0 auto;overflow-x:auto;padding-bottom:20px;scrollbar-width:none}
     .categorias-nav::-webkit-scrollbar{display:none}
     .cat-btn{background:var(--escuro-4);border:1px solid rgba(201,168,76,0.15);color:var(--texto-suave);padding:8px 18px;border-radius:50px;font-size:0.82rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:var(--transicao);font-family:var(--fonte-corpo)}
     .cat-btn:hover,.cat-btn.ativo{background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);border-color:transparent;font-weight:700}
-
     .secao-produtos{padding:48px 20px 72px;background:var(--escuro-2)}
     .secao-titulo{text-align:center;margin-bottom:16px}
     .secao-titulo h2{font-family:var(--fonte-titulo);font-size:clamp(1.8rem,5vw,3rem);font-weight:600;color:var(--branco)}
     .secao-titulo p{color:var(--texto-suave);margin-top:8px}
     .produtos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px;max-width:1100px;margin:0 auto}
-
     .card-produto{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.12);border-radius:8px;overflow:hidden;transition:var(--transicao);display:flex;flex-direction:column}
     .card-produto:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.35);box-shadow:var(--sombra-ouro)}
     .card-foto{aspect-ratio:4/3;overflow:hidden;background:var(--escuro-4);position:relative}
@@ -68,7 +57,6 @@
     .card-preco small{font-size:0.75rem;font-family:var(--fonte-corpo);color:var(--texto-suave);font-weight:400;display:block;line-height:1}
     .btn-pedir{background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);border:none;padding:10px 22px;border-radius:4px;font-family:var(--fonte-corpo);font-size:0.85rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:var(--transicao);flex-shrink:0}
     .btn-pedir:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,0.4)}
-
     .secao-regras{padding:72px 20px;background:var(--escuro-1)}
     .regras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;max-width:1100px;margin:0 auto}
     .regra-card{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.12);border-radius:8px;padding:28px 24px;text-align:center;transition:var(--transicao)}
@@ -77,7 +65,6 @@
     .regra-card h3{font-family:var(--fonte-titulo);font-size:1.2rem;font-weight:600;color:var(--ouro);margin-bottom:10px}
     .regra-card p{font-size:0.875rem;color:var(--texto-suave);line-height:1.7}
     .regra-destaque{border-color:rgba(201,168,76,0.3);background:linear-gradient(135deg,var(--escuro-3),rgba(201,168,76,0.04))}
-
     .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
     .modal-overlay.aberto{opacity:1;pointer-events:all}
     .modal{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.25);border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;padding:32px 28px;transform:translateY(20px);transition:transform 0.3s ease}
@@ -98,21 +85,13 @@
     .campo-erro{font-size:0.75rem;color:#e57373;margin-top:4px;display:block;min-height:18px}
     .btn-enviar{width:100%;padding:14px;background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);border:none;border-radius:6px;font-family:var(--fonte-corpo);font-size:1rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:var(--transicao);margin-top:8px}
     .btn-enviar:hover{filter:brightness(1.1);box-shadow:0 4px 24px rgba(201,168,76,0.4)}
-
     .footer{background:var(--escuro-2);border-top:1px solid rgba(201,168,76,0.12);padding:48px 20px 32px;text-align:center}
     .footer-logo{font-family:var(--fonte-titulo);font-size:1.8rem;font-weight:700;color:var(--ouro);margin-bottom:20px}
     .footer-contato{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-bottom:28px}
     .footer-contato a{display:flex;align-items:center;gap:8px;color:var(--texto-suave);font-size:0.9rem;transition:color 0.2s}
     .footer-contato a:hover{color:var(--ouro)}
     .footer-copy{font-size:0.78rem;color:var(--escuro-5)}
-
-    @media(max-width:600px){
-      .header-inner{padding:14px 16px}
-      .btn-wpp span{display:none}
-      .hero{padding:56px 16px 48px}
-      .secao-produtos,.secao-regras{padding:48px 16px}
-      .modal{padding:24px 18px}
-    }
+    @media(max-width:600px){.header-inner{padding:14px 16px}.btn-wpp span{display:none}.hero{padding:56px 16px 48px}.secao-produtos,.secao-regras{padding:48px 16px}.modal{padding:24px 18px}}
   </style>
 </head>
 <body>
@@ -212,16 +191,17 @@
 
 <script>
 const PRODUTOS = [
-  {id:1,categoria:'pano',badge:'Custo-benefício',nome:'Pano de Prato Viés Pé de Galinha',descricao:'O clássico que não falta em nenhuma cozinha! Estampado, colorido e resistente no dia a dia. Perfeito pra secar louça sem gastar muito. Quem tem um, logo quer levar mais!',preco:12,unidade:'unidade',foto:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
-  {id:2,categoria:'pano',badge:'Mais vendido',nome:'Pano de Prato Aplicado',descricao:'Esse pano de prato vira decoração de cozinha! Com aplique bordado e barrado colorido, ele é bonito demais pra ficar escondido. Quem visita sempre para pra elogiar.',preco:15,unidade:'unidade',foto:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80'},
-  {id:3,categoria:'pano',badge:'Premium',nome:'Pano de Prato Atoalhado',descricao:'Felpudo, macio e super absorvente — esse é o pano de prato que seca tudo na primeira passada. Quem experimenta não volta pro pano fininho. Qualidade que você sente na mão!',preco:18,unidade:'unidade',foto:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80'},
-  {id:4,categoria:'pano',badge:'Tamanho família',nome:'Pano de Prato Tapa Tudo',descricao:'Grande, bonito e versátil! Cobre o fogão, envolve travessas quentes, seca panela e ainda enfeita sua cozinha. É o queridinho de quem já conhece — e quem experimenta não larga!',preco:22,unidade:'unidade',foto:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80'},
-  {id:5,categoria:'toalha',badge:'Alta qualidade',nome:'Toalha de Banho Felpuda',descricao:'Sair do banho e se enrolar nessa toalha é outra experiência! Felpuda, encorpada e macia, ela absorve de verdade e dura muito lavando. Disponível em várias cores incríveis.',preco:55,unidade:'unidade',foto:'https://images.unsplash.com/photo-1600369671236-e74521d4b6ad?w=600&q=80'},
-  {id:6,categoria:'tapete',badge:'Kit completo',nome:'Jogo de Passadeira 3 Peças',descricao:'Transforme a sua casa com um jogo completo! 1 passadeira grande + 2 tapetinhos menores. Tecido resistente, cores variadas e acabamento caprichado. Combina com qualquer ambiente.',preco:100,unidade:'jogo',foto:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80'},
-  {id:7,categoria:'tapete',badge:'Avulso',nome:'Tapetinho Avulso (2 peças)',descricao:'Quer completar o que já tem em casa? Esse kit com 2 tapetinhos é perfeito pra porta do banheiro, quarto ou cozinha. Várias cores pra combinar com a sua decoração.',preco:22,unidade:'2 peças',foto:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80'},
-  {id:8,categoria:'lencol',badge:'Solteiro',nome:'Lençol de Elástico Solteiro + Fronha',descricao:'Durma bem toda noite com esse lençol que não sai do colchão nem na madrugada! Tecido leve, macio e fresquinho — perfeito pro calor do Tocantins. Já vem com 1 fronha.',preco:85,unidade:'kit',foto:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80'},
-  {id:9,categoria:'lencol',badge:'Casal',nome:'Lençol de Elástico Casal + 2 Fronhas',descricao:'O kit completo pra cama de casal! Lençol com elástico que abraça o colchão direitinho, sem escorregar. Acompanha 2 fronhas. Estampas modernas e lindas pra deixar seu quarto bonito.',preco:100,unidade:'kit',foto:'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80'},
-  {id:10,categoria:'lencol',badge:'Cobertor leve',nome:'Lençol de Cobrir Casal',descricao:'O cobertor ideal pra quem mora no Tocantins! Leve, fresquinho e gostoso de usar nas noites mais amenas. Tamanho casal, sem elástico — cobre bem e vem em estampas incríveis.',preco:85,unidade:'unidade',foto:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80'}
+  {id:1,categoria:'pano',badge:'Custo-benefício',nome:'Pano de Prato Viés Pé de Galinha',descricao:'O clássico que não falta em nenhuma cozinha! Estampado, colorido e resistente no dia a dia. Perfeito pra secar louça sem gastar muito. Quem tem um, logo quer levar mais!',preco:12,unidade:'unidade',foto:'https://i.ibb.co/q33FtJ9z/IMG-20260218-WA0036-1.jpg'},
+  {id:2,categoria:'pano',badge:'Mais vendido',nome:'Pano de Prato Aplicado',descricao:'Esse pano de prato vira decoração de cozinha! Com aplique bordado e barrado colorido, ele é bonito demais pra ficar escondido. Quem visita sempre para pra elogiar.',preco:15,unidade:'unidade',foto:'https://i.ibb.co/WWxg5QFn/IMG-20250224-WA0024.jpg'},
+  {id:3,categoria:'pano',badge:'Premium',nome:'Pano de Prato Atoalhado',descricao:'Felpudo, macio e super absorvente — esse é o pano de prato que seca tudo na primeira passada. Quem experimenta não volta pro pano fininho. Qualidade que você sente na mão!',preco:18,unidade:'unidade',foto:'https://i.ibb.co/vxxbkVYJ/IMG-20250705-WA0028-1.jpg'},
+  {id:4,categoria:'pano',badge:'Tamanho família',nome:'Pano de Prato Tapa Tudo',descricao:'Grande, bonito e versátil! Cobre o fogão, envolve travessas quentes, seca panela e ainda enfeita sua cozinha. É o queridinho de quem já conhece — e quem experimenta não larga!',preco:22,unidade:'unidade',foto:'https://i.ibb.co/sdkgTBXd/IMG-20251128-WA0052.jpg'},
+  {id:5,categoria:'toalha',badge:'Alta qualidade',nome:'Toalha de Banho Felpuda',descricao:'Sair do banho e se enrolar nessa toalha é outra experiência! Felpuda, encorpada e macia, ela absorve de verdade e dura muito lavando. Disponível em várias cores incríveis.',preco:55,unidade:'unidade',foto:'https://i.ibb.co/2Yg8MPHy/IMG-20250120-WA0023-2.jpg'},
+  {id:6,categoria:'tapete',badge:'Kit completo',nome:'Jogo de Passadeira Xadrez 3 Peças',descricao:'Transforme a sua casa com um jogo completo! 1 passadeira grande + 2 tapetinhos menores. Estampa xadrez clássica em cores variadas. Resistente, bonito e combina com qualquer ambiente.',preco:100,unidade:'jogo',foto:'https://i.ibb.co/nZBVkbx/IMG-20251119-WA0115.jpg'},
+  {id:7,categoria:'tapete',badge:'Kit completo',nome:'Jogo de Passadeira Sombreado 3 Peças',descricao:'Elegante e moderno! Jogo com 1 passadeira grande + 2 tapetinhos no estilo sombreado. Cores variadas, acabamento caprichado e resistência pra durar muito na sua casa.',preco:100,unidade:'jogo',foto:'https://i.ibb.co/NgFyryN4/IMG-20251119-WA0114.jpg'},
+  {id:8,categoria:'tapete',badge:'Avulso',nome:'Tapetinho Avulso (2 peças)',descricao:'Quer completar o que já tem em casa? Esse kit com 2 tapetinhos é perfeito pra porta do banheiro, quarto ou cozinha. Várias cores pra combinar com a sua decoração.',preco:22,unidade:'2 peças',foto:'https://i.ibb.co/bgPSX5xV/IMG-20260323-WA0054.jpg'},
+  {id:9,categoria:'lencol',badge:'Solteiro',nome:'Lençol de Elástico Solteiro + Fronha',descricao:'Durma bem toda noite com esse lençol que não sai do colchão nem na madrugada! Tecido leve, macio e fresquinho — perfeito pro calor do Tocantins. Já vem com 1 fronha.',preco:85,unidade:'kit',foto:'https://i.ibb.co/JjmwVvBX/1779297084176.png'},
+  {id:10,categoria:'lencol',badge:'Casal',nome:'Lençol de Elástico Casal + 2 Fronhas',descricao:'O kit completo pra cama de casal! Lençol com elástico que abraça o colchão direitinho, sem escorregar. Acompanha 2 fronhas. Estampas modernas e lindas pra deixar seu quarto bonito.',preco:100,unidade:'kit',foto:'https://i.ibb.co/8D3FS0zr/IMG-20260520-WA0058.jpg'},
+  {id:11,categoria:'lencol',badge:'Cobertor leve',nome:'Lençol de Cobrir Casal',descricao:'O cobertor ideal pra quem mora no Tocantins! Leve, fresquinho e gostoso de usar nas noites mais amenas. Tamanho casal, sem elástico — cobre bem e vem em estampas incríveis.',preco:85,unidade:'unidade',foto:'https://i.ibb.co/WNy0HPQk/IMG-20260520-WA0046.jpg'}
 ];
 
 function formatarPreco(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}

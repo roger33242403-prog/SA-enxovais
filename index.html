@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SA Enxovais — Pano de prato, toalha, tapete e lençol com entrega na sua porta." />
+  <title>SA Enxovais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ouro:#C9A84C;--ouro-escuro:#9A7730;--escuro-1:#0D0D0D;--escuro-2:#141414;--escuro-3:#1C1C1C;--escuro-4:#252525;--escuro-5:#2E2E2E;--texto:#E8E0D0;--texto-suave:#A09880;--branco:#F5F0E8;--fonte-titulo:'Cormorant Garamond',serif;--fonte-corpo:'Jost',sans-serif;--sombra-ouro:0 0 30px rgba(201,168,76,0.15);--transicao:all 0.3s ease}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--escuro-1);color:var(--texto);font-family:var(--fonte-corpo);line-height:1.7;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{width:100%;max-width:1100px;margin:0 auto;padding:0 20px}
+    .separador{display:flex;align-items:center;gap:16px;margin:0 auto 48px;max-width:320px}
+    .separador::before,.separador::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--ouro),transparent)}
+    .separador span{color:var(--ouro);font-size:1.2rem}
+
+    /* HEADER */
+    .header{background:var(--escuro-2);border-bottom:1px solid rgba(201,168,76,0.2);position:sticky;top:0;z-index:100}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;max-width:1100px;margin:0 auto;gap:12px}
+    .logo{font-family:var(--fonte-titulo);font-size:clamp(1.3rem,4vw,2rem);font-weight:700;color:var(--ouro);line-height:1}
+    .logo span{display:block;font-size:0.45em;font-weight:300;letter-spacing:0.3em;color:var(--texto-suave);text-transform:uppercase}
+    .header-acoes{display:flex;align-items:center;gap:10px}
+    .btn-wpp{display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:10px 18px;border-radius:50px;font-size:0.85rem;font-weight:600;transition:var(--transicao);white-space:nowrap}
+    .btn-wpp:hover{background:#1ebe5d;transform:translateY(-1px)}
+    .btn-wpp svg{width:18px;height:18px;flex-shrink:0}
+    .btn-carrinho{position:relative;background:var(--escuro-4);border:1px solid rgba(201,168,76,0.3);color:var(--ouro);padding:10px 14px;border-radius:50px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:var(--transicao);display:flex;align-items:center;gap:6px;font-family:var(--fonte-corpo)}
+    .btn-carrinho:hover{background:var(--escuro-5)}
+    .btn-carrinho svg{width:18px;height:18px}
+    .carrinho-badge{background:var(--ouro);color:var(--escuro-1);border-radius:50%;width:18px;height:18px;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;position:absolute;top:-4px;right:-4px}
+    .carrinho-badge.oculto{display:none}
+
+    /* HERO */
+    .hero{text-align:center;padding:80px 20px 64px;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.09) 0%,transparent 70%),var(--escuro-1)}
+    .hero-tagline{font-size:0.75rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ouro);margin-bottom:16px}
+    .hero h1{font-family:var(--fonte-titulo);font-size:clamp(2.2rem,8vw,4.5rem);font-weight:600;line-height:1.1;color:var(--branco);margin-bottom:20px}
+    .hero h1 em{font-style:italic;color:var(--ouro)}
+    .hero p{max-width:520px;margin:0 auto 36px;color:var(--texto-suave);font-size:1rem}
+    .btn-hero{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);font-weight:700;font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;padding:16px 36px;border-radius:4px;transition:var(--transicao);box-shadow:0 4px 24px rgba(201,168,76,0.3)}
+    .btn-hero:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.45)}
+
+    /* CATEGORIAS */
+    .secao-categorias{padding:20px 20px 0;background:var(--escuro-2)}
+    .categorias-nav{display:flex;gap:10px;max-width:1100px;margin:0 auto;overflow-x:auto;padding-bottom:20px;scrollbar-width:none}
+    .categorias-nav::-webkit-scrollbar{display:none}
+    .cat-btn{background:var(--escuro-4);border:1px solid rgba(201,168,76,0.15);color:var(--texto-suave);padding:8px 18px;border-radius:50px;font-size:0.82rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:var(--transicao);font-family:var(--fonte-corpo)}
+    .cat-btn:hover,.cat-btn.ativo{background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);border-color:transparent;font-weight:700}
+
+    /* PRODUTOS */
+    .secao-produtos{padding:48px 20px 72px;background:var(--escuro-2)}
+    .secao-titulo{text-align:center;margin-bottom:16px}
+    .secao-titulo h2{font-family:var(--fonte-titulo);font-size:clamp(1.8rem,5vw,3rem);font-weight:600;color:var(--branco)}
+    .secao-titulo p{color:var(--texto-suave);margin-top:8px}
+    .produtos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+    .card-produto{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.12);border-radius:8px;overflow:hidden;transition:var(--transicao);display:flex;flex-direction:column}
+    .card-produto:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.35);box-shadow:var(--sombra-ouro)}
+    .card-foto{aspect-ratio:4/3;overflow:hidden;background:var(--escuro-4);position:relative}
+    .card-foto img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+    .card-produto:hover .card-foto img{transform:scale(1.05)}
+    .card-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:50px}
+    .card-info{padding:20px;display:flex;flex-direction:column;flex:1;gap:8px}
+    .card-nome{font-family:var(--fonte-titulo);font-size:1.2rem;font-weight:600;color:var(--branco);line-height:1.3}
+    .card-descricao{font-size:0.85rem;color:var(--texto-suave);flex:1;line-height:1.7}
+    .card-rodape{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}
+    .card-preco{font-family:var(--fonte-titulo);font-size:1.6rem;font-weight:700;color:var(--ouro)}
+    .card-preco small{font-size:0.72rem;font-family:var(--fonte-corpo);color:var(--texto-suave);font-weight:400;display:block;line-height:1}
+    .btn-add{background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);border:none;padding:10px 18px;border-radius:4px;font-family:var(--fonte-corpo);font-size:0.82rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:var(--transicao);flex-shrink:0;display:flex;align-items:center;gap:6px}
+    .btn-add:hover{filter:brightness(1.1);transform:translateY(-1px)}
+    .btn-add svg{width:14px;height:14px}
+
+    /* CARRINHO LATERAL */
+    .carrinho-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
+    .carrinho-overlay.aberto{opacity:1;pointer-events:all}
+    .carrinho-panel{position:fixed;top:0;right:0;height:100%;width:min(420px,100vw);background:var(--escuro-2);border-left:1px solid rgba(201,168,76,0.2);z-index:301;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.35s ease}
+    .carrinho-overlay.aberto .carrinho-panel{transform:translateX(0)}
+    .carrinho-header{padding:20px 24px;border-bottom:1px solid rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:space-between}
+    .carrinho-titulo{font-family:var(--fonte-titulo);font-size:1.6rem;font-weight:600;color:var(--branco)}
+    .carrinho-fechar{background:none;border:none;color:var(--texto-suave);cursor:pointer;font-size:1.5rem;padding:4px;transition:color 0.2s}
+    .carrinho-fechar:hover{color:var(--ouro)}
+    .carrinho-itens{flex:1;overflow-y:auto;padding:16px 24px;scrollbar-width:thin;scrollbar-color:var(--ouro-escuro) var(--escuro-4)}
+    .carrinho-vazio{text-align:center;color:var(--texto-suave);padding:48px 0;font-size:0.95rem}
+    .carrinho-vazio span{font-size:3rem;display:block;margin-bottom:12px}
+    .item-carrinho{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.05);align-items:center}
+    .item-foto{width:60px;height:60px;border-radius:6px;object-fit:cover;flex-shrink:0}
+    .item-info{flex:1;min-width:0}
+    .item-nome{font-size:0.85rem;font-weight:600;color:var(--branco);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .item-preco{font-size:0.8rem;color:var(--ouro);margin-top:2px}
+    .item-controles{display:flex;align-items:center;gap:8px;margin-top:6px}
+    .ctrl-btn{background:var(--escuro-4);border:1px solid rgba(201,168,76,0.2);color:var(--texto);width:26px;height:26px;border-radius:4px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:var(--transicao);font-family:var(--fonte-corpo)}
+    .ctrl-btn:hover{border-color:var(--ouro);color:var(--ouro)}
+    .ctrl-qtd{font-size:0.9rem;font-weight:600;color:var(--branco);min-width:20px;text-align:center}
+    .item-remover{background:none;border:none;color:#e57373;cursor:pointer;font-size:1.1rem;padding:4px;margin-left:4px;transition:opacity 0.2s}
+    .item-remover:hover{opacity:0.7}
+
+    /* CARRINHO RODAPÉ */
+    .carrinho-footer{padding:20px 24px;border-top:1px solid rgba(201,168,76,0.15)}
+    .carrinho-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+    .carrinho-total span{font-size:0.85rem;color:var(--texto-suave)}
+    .carrinho-total strong{font-family:var(--fonte-titulo);font-size:1.8rem;color:var(--ouro)}
+    .carrinho-status{border-radius:8px;padding:12px 14px;font-size:0.82rem;line-height:1.5;margin-bottom:14px;text-align:center}
+    .status-minimo{background:rgba(229,115,115,0.1);border:1px solid rgba(229,115,115,0.3);color:#e57373}
+    .status-fiado{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);color:#4ade80}
+    .status-avista{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--ouro)}
+    .status-maximo{background:rgba(229,115,115,0.1);border:1px solid rgba(229,115,115,0.3);color:#e57373}
+    .btn-fechar-pedido{width:100%;padding:14px;background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);border:none;border-radius:6px;font-family:var(--fonte-corpo);font-size:1rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:var(--transicao);display:flex;align-items:center;justify-content:center;gap:8px}
+    .btn-fechar-pedido:hover{filter:brightness(1.1)}
+    .btn-fechar-pedido:disabled{background:var(--escuro-5);color:var(--texto-suave);cursor:not-allowed;filter:none}
+
+    /* MODAL DADOS */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);z-index:400;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
+    .modal-overlay.aberto{opacity:1;pointer-events:all}
+    .modal{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.25);border-radius:12px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;padding:32px 28px;transform:translateY(20px);transition:transform 0.3s ease}
+    .modal-overlay.aberto .modal{transform:translateY(0)}
+    .modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+    .modal-titulo{font-family:var(--fonte-titulo);font-size:1.6rem;font-weight:600;color:var(--branco)}
+    .modal-titulo small{display:block;font-family:var(--fonte-corpo);font-size:0.8rem;font-weight:400;color:var(--ouro);margin-top:2px}
+    .modal-fechar{background:none;border:none;color:var(--texto-suave);cursor:pointer;font-size:1.5rem;line-height:1;padding:4px;transition:color 0.2s;flex-shrink:0}
+    .modal-fechar:hover{color:var(--ouro)}
+    .form-grupo{margin-bottom:18px}
+    .form-grupo label{display:block;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--texto-suave);margin-bottom:6px}
+    .form-grupo input,.form-grupo textarea{width:100%;background:var(--escuro-4);border:1px solid rgba(201,168,76,0.15);border-radius:6px;padding:12px 14px;color:var(--texto);font-family:var(--fonte-corpo);font-size:0.95rem;outline:none;transition:border-color 0.2s}
+    .form-grupo input::placeholder,.form-grupo textarea::placeholder{color:var(--texto-suave)}
+    .form-grupo input:focus,.form-grupo textarea:focus{border-color:var(--ouro);background:var(--escuro-5)}
+    .form-grupo textarea{resize:vertical;min-height:80px}
+    .campo-erro{font-size:0.75rem;color:#e57373;margin-top:4px;display:block;min-height:18px}
+    .pagamento-info{background:var(--escuro-4);border:1px solid rgba(201,168,76,0.2);border-radius:6px;padding:12px 14px;font-size:0.85rem;color:var(--ouro);margin-bottom:18px;text-align:center}
+    .btn-enviar{width:100%;padding:14px;background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1);border:none;border-radius:6px;font-family:var(--fonte-corpo);font-size:1rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:var(--transicao);margin-top:8px}
+    .btn-enviar:hover{filter:brightness(1.1)}
+
+    /* REGRAS */
+    .secao-regras{padding:72px 20px;background:var(--escuro-1)}
+    .regras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+    .regra-card{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.12);border-radius:8px;padding:28px 24px;text-align:center;transition:var(--transicao)}
+    .regra-card:hover{border-color:rgba(201,168,76,0.3)}
+    .regra-icone{font-size:2.4rem;margin-bottom:14px;display:block}
+    .regra-card h3{font-family:var(--fonte-titulo);font-size:1.2rem;font-weight:600;color:var(--ouro);margin-bottom:10px}
+    .regra-card p{font-size:0.875rem;color:var(--texto-suave);line-height:1.7}
+    .regra-destaque{border-color:rgba(201,168,76,0.3);background:linear-gradient(135deg,var(--escuro-3),rgba(201,168,76,0.04))}
+
+    /* FOOTER */
+    .footer{background:var(--escuro-2);border-top:1px solid rgba(201,168,76,0.12);padding:48px 20px 32px;text-align:center}
+    .footer-logo{font-family:var(--fonte-titulo);font-size:1.8rem;font-weight:700;color:var(--ouro);margin-bottom:20px}
+    .footer-contato{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-bottom:28px}
+    .footer-contato a{display:flex;align-items:center;gap:8px;color:var(--texto-suave);font-size:0.9rem;transition:color 0.2s}
+    .footer-contato a:hover{color:var(--ouro)}
+    .footer-copy{font-size:0.78rem;color:var(--escuro-5)}
+
+    @media(max-width:600px){
+      .header-inner{padding:14px 16px}
+      .btn-wpp span{display:none}
+      .hero{padding:56px 16px 48px}
+      .secao-produtos,.secao-regras{padding:48px 16px}
+      .modal{padding:24px 18px}
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">SA Enxovais<span>Cama · Mesa · Banho</span></div>
+    <div class="header-acoes">
+      <button class="btn-carrinho" onclick="abrirCarrinho()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Carrinho
+        <span class="carrinho-badge oculto" id="carrinho-badge">0</span>
+      </button>
+      <a href="https://wa.me/5537998217693" target="_blank" rel="noopener" class="btn-wpp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <p class="hero-tagline">✦ Entrega na sua porta · Todo dia ✦</p>
+  <h1>Enxovais de <em>qualidade</em><br>sem sair de casa</h1>
+  <p>Pano de prato, toalha, tapete e lençol direto pra você. Preço justo, produto bom e entrega combinada na hora certa.</p>
+  <a href="#produtos" class="btn-hero">Ver produtos</a>
+</section>
+
+<section class="secao-categorias">
+  <div class="categorias-nav">
+    <button class="cat-btn ativo" onclick="filtrar('todos',this)">🛒 Todos</button>
+    <button class="cat-btn" onclick="filtrar('pano',this)">🍽️ Pano de Prato</button>
+    <button class="cat-btn" onclick="filtrar('toalha',this)">🚿 Toalhas</button>
+    <button class="cat-btn" onclick="filtrar('tapete',this)">🏠 Tapetes</button>
+    <button class="cat-btn" onclick="filtrar('lencol',this)">🛏️ Lençóis</button>
+  </div>
+</section>
+
+<section class="secao-produtos" id="produtos">
+  <div class="container">
+    <div class="secao-titulo">
+      <h2>Nossos Produtos</h2>
+      <p>Adicione ao carrinho e feche seu pedido de uma vez</p>
+    </div>
+    <div class="separador"><span>✦</span></div>
+    <div class="produtos-grid" id="produtos-grid"></div>
+  </div>
+</section>
+
+<section class="secao-regras" id="como-comprar">
+  <div class="container">
+    <div class="secao-titulo"><h2>Como Funciona</h2><p>Simples, transparente e seguro</p></div>
+    <div class="separador"><span>✦</span></div>
+    <div class="regras-grid">
+      <div class="regra-card"><span class="regra-icone">🛒</span><h3>Mínimo de R$ 150</h3><p>O pedido mínimo é de <strong style="color:var(--ouro)">R$ 150,00</strong>. Abaixo disso o carrinho não fecha.</p></div>
+      <div class="regra-card regra-destaque"><span class="regra-icone">💳</span><h3>Até R$ 199 — Fiado</h3><p>Pedidos entre R$ 150 e R$ 199 podem ser feitos fiado. Precisa de comprovante de residência.</p></div>
+      <div class="regra-card regra-destaque"><span class="regra-icone">⚡</span><h3>R$ 200 a R$ 400 — Metade à Vista</h3><p>Pedidos nessa faixa exigem <strong style="color:var(--ouro)">metade do valor no PIX</strong> para liberar.</p></div>
+      <div class="regra-card"><span class="regra-icone">🚫</span><h3>Limite de R$ 400</h3><p>O carrinho bloqueia automaticamente pedidos acima de <strong style="color:var(--ouro)">R$ 400,00</strong>.</p></div>
+      <div class="regra-card"><span class="regra-icone">🚚</span><h3>Entrega na Sua Porta</h3><p>Confirmado o pedido, combinamos o melhor horário pra levar tudo direto na sua casa.</p></div>
+      <div class="regra-card"><span class="regra-icone">💬</span><h3>Atendimento no WhatsApp</h3><p>Ficou com dúvida? É só chamar. Atendimento rápido e sem enrolação.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo">SA Enxovais</div>
+  <div class="footer-contato">
+    <a href="https://wa.me/5537998217693" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      (37) 99821-7693
+    </a>
+  </div>
+  <p class="footer-copy">© 2025 SA Enxovais — Todos os direitos reservados</p>
+</footer>
+
+<!-- CARRINHO LATERAL -->
+<div class="carrinho-overlay" id="carrinho-overlay" onclick="fecharCarrinho()">
+  <div class="carrinho-panel" onclick="event.stopPropagation()">
+    <div class="carrinho-header">
+      <div class="carrinho-titulo">🛒 Carrinho</div>
+      <button class="carrinho-fechar" onclick="fecharCarrinho()">✕</button>
+    </div>
+    <div class="carrinho-itens" id="carrinho-itens"></div>
+    <div class="carrinho-footer">
+      <div class="carrinho-total">
+        <span>Total</span>
+        <strong id="carrinho-total-valor">R$ 0,00</strong>
+      </div>
+      <div class="carrinho-status" id="carrinho-status"></div>
+      <button class="btn-fechar-pedido" id="btn-fechar-pedido" onclick="abrirModalDados()" disabled>
+        Fechar pedido
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DADOS DO CLIENTE -->
+<div class="modal-overlay" id="modal-dados">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-titulo">Seus dados<small id="modal-pagamento-label"></small></div>
+      <button class="modal-fechar" onclick="fecharModalDados()">✕</button>
+    </div>
+    <form id="form-pedido" novalidate>
+      <div class="pagamento-info" id="pagamento-info"></div>
+      <div class="form-grupo"><label for="campo-nome">Nome completo</label><input type="text" id="campo-nome" placeholder="Ex: Maria Silva" /><span class="campo-erro" id="erro-nome"></span></div>
+      <div class="form-grupo"><label for="campo-telefone">WhatsApp / Telefone</label><input type="tel" id="campo-telefone" placeholder="(37) 99999-9999" /><span class="campo-erro" id="erro-telefone"></span></div>
+      <div class="form-grupo"><label for="campo-endereco">Endereço completo</label><input type="text" id="campo-endereco" placeholder="Rua, número, bairro, CEP" /><span class="campo-erro" id="erro-endereco"></span></div>
+      <div class="form-grupo"><label for="campo-obs">Observações (opcional)</label><textarea id="campo-obs" placeholder="Cor preferida, tamanho, ou qualquer detalhe extra…"></textarea></div>
+      <button type="submit" class="btn-enviar">Enviar pedido pelo WhatsApp 💬</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const PRODUTOS = [
+  {id:1,categoria:'pano',badge:'Custo-benefício',nome:'Pano de Prato Viés Pé de Galinha',descricao:'O clássico que não falta em nenhuma cozinha! Estampado, colorido e resistente. Perfeito pra secar louça sem gastar muito.',preco:12,unidade:'unidade',foto:'https://i.ibb.co/q33FtJ9z/IMG-20260218-WA0036-1.jpg'},
+  {id:2,categoria:'pano',badge:'Mais vendido',nome:'Pano de Prato Aplicado',descricao:'Esse pano vira decoração! Com aplique bordado e barrado colorido, ele é bonito demais pra ficar escondido.',preco:15,unidade:'unidade',foto:'https://i.ibb.co/WWxg5QFn/IMG-20250224-WA0024.jpg'},
+  {id:3,categoria:'pano',badge:'Premium',nome:'Pano de Prato Atoalhado',descricao:'Felpudo, macio e super absorvente — seca tudo na primeira passada. Quem experimenta não volta pro pano fininho.',preco:18,unidade:'unidade',foto:'https://i.ibb.co/vxxbkVYJ/IMG-20250705-WA0028-1.jpg'},
+  {id:4,categoria:'pano',badge:'Tamanho família',nome:'Pano de Prato Tapa Tudo',descricao:'Grande e versátil! Cobre o fogão, envolve travessas quentes, seca panela e ainda enfeita sua cozinha.',preco:22,unidade:'unidade',foto:'https://i.ibb.co/sdkgTBXd/IMG-20251128-WA0052.jpg'},
+  {id:5,categoria:'toalha',badge:'Alta qualidade',nome:'Toalha de Banho Felpuda',descricao:'Felpuda, encorpada e macia, ela absorve de verdade e dura muito lavando. Várias cores incríveis disponíveis.',preco:55,unidade:'unidade',foto:'https://i.ibb.co/2Yg8MPHy/IMG-20250120-WA0023-2.jpg'},
+  {id:6,categoria:'tapete',badge:'Kit completo',nome:'Jogo de Passadeira Xadrez 3 Peças',descricao:'1 passadeira grande + 2 tapetinhos. Estampa xadrez clássica em cores variadas. Resistente e bonito.',preco:100,unidade:'jogo',foto:'https://i.ibb.co/nZBVkbx/IMG-20251119-WA0115.jpg'},
+  {id:7,categoria:'tapete',badge:'Kit completo',nome:'Jogo de Passadeira Sombreado 3 Peças',descricao:'1 passadeira grande + 2 tapetinhos no estilo sombreado. Cores variadas e acabamento caprichado.',preco:100,unidade:'jogo',foto:'https://i.ibb.co/NgFyryN4/IMG-20251119-WA0114.jpg'},
+  {id:8,categoria:'tapete',badge:'Avulso',nome:'Tapetinho Avulso (2 peças)',descricao:'Kit com 2 tapetinhos pra porta do banheiro, quarto ou cozinha. Várias cores disponíveis.',preco:22,unidade:'2 peças',foto:'https://i.ibb.co/bgPSX5xV/IMG-20260323-WA0054.jpg'},
+  {id:9,categoria:'lencol',badge:'Solteiro',nome:'Lençol de Elástico Solteiro + Fronha',descricao:'Não sai do colchão nem na madrugada! Tecido leve e fresquinho, perfeito pro calor do Tocantins. Vem com 1 fronha.',preco:85,unidade:'kit',foto:'https://i.ibb.co/JjmwVvBX/1779297084176.png'},
+  {id:10,categoria:'lencol',badge:'Casal',nome:'Lençol de Elástico Casal + 2 Fronhas',descricao:'Abraça o colchão direitinho, sem escorregar. Acompanha 2 fronhas. Estampas modernas e lindas.',preco:100,unidade:'kit',foto:'https://i.ibb.co/8D3FS0zr/IMG-20260520-WA0058.jpg'},
+  {id:11,categoria:'lencol',badge:'Cobertor leve',nome:'Lençol de Cobrir Casal',descricao:'O cobertor ideal pro Tocantins! Leve e fresquinho pras noites mais amenas. Tamanho casal, estampas incríveis.',preco:85,unidade:'unidade',foto:'https://i.ibb.co/WNy0HPQk/IMG-20260520-WA0046.jpg'}
+];
+
+const WHATSAPP = '5537998217693';
+const MINIMO = 150;
+const LIMITE_FIADO = 200;
+const MAXIMO = 400;
+
+let carrinho = [];
+
+function formatarPreco(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function getProdutoPorId(id){return PRODUTOS.find(p=>p.id===Number(id))}
+
+// ── RENDERIZAR PRODUTOS ──────────────────────────────────────
+function renderizarProdutos(lista){
+  document.getElementById('produtos-grid').innerHTML=lista.map(p=>`
+    <div class="card-produto">
+      <div class="card-foto">
+        <img src="${p.foto}" alt="${p.nome}" loading="lazy"/>
+        <span class="card-badge">${p.badge}</span>
+      </div>
+      <div class="card-info">
+        <h3 class="card-nome">${p.nome}</h3>
+        <p class="card-descricao">${p.descricao}</p>
+        <div class="card-rodape">
+          <span class="card-preco">${formatarPreco(p.preco)}<small>por ${p.unidade}</small></span>
+          <button class="btn-add" onclick="adicionarAoCarrinho(${p.id})">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Adicionar
+          </button>
+        </div>
+      </div>
+    </div>`).join('')
+}
+
+function filtrar(cat,btn){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  renderizarProdutos(cat==='todos'?PRODUTOS:PRODUTOS.filter(p=>p.categoria===cat));
+}
+
+// ── CARRINHO ─────────────────────────────────────────────────
+function adicionarAoCarrinho(id){
+  const p = getProdutoPorId(id);
+  if(!p) return;
+  const total = calcularTotal() + p.preco;
+  if(total > MAXIMO){
+    abrirCarrinho();
+    return;
+  }
+  const item = carrinho.find(i=>i.id===id);
+  if(item){ item.qtd++; } else { carrinho.push({id,qtd:1}); }
+  atualizarCarrinho();
+  abrirCarrinho();
+}
+
+function calcularTotal(){
+  return carrinho.reduce((acc,i)=>{
+    const p=getProdutoPorId(i.id);
+    return acc+(p?p.preco*i.qtd:0);
+  },0);
+}
+
+function atualizarCarrinho(){
+  const total = calcularTotal();
+  const qtdTotal = carrinho.reduce((a,i)=>a+i.qtd,0);
+
+  // Badge
+  const badge = document.getElementById('carrinho-badge');
+  if(qtdTotal>0){badge.textContent=qtdTotal;badge.classList.remove('oculto');}
+  else{badge.classList.add('oculto');}
+
+  // Total
+  document.getElementById('carrinho-total-valor').textContent = formatarPreco(total);
+
+  // Itens
+  const container = document.getElementById('carrinho-itens');
+  if(carrinho.length===0){
+    container.innerHTML='<div class="carrinho-vazio"><span>🛒</span>Seu carrinho está vazio.<br>Adicione produtos para continuar.</div>';
+  } else {
+    container.innerHTML = carrinho.map(i=>{
+      const p=getProdutoPorId(i.id);
+      return `<div class="item-carrinho">
+        <img class="item-foto" src="${p.foto}" alt="${p.nome}"/>
+        <div class="item-info">
+          <div class="item-nome">${p.nome}</div>
+          <div class="item-preco">${formatarPreco(p.preco)} / ${p.unidade}</div>
+          <div class="item-controles">
+            <button class="ctrl-btn" onclick="alterarQtd(${p.id},-1)">−</button>
+            <span class="ctrl-qtd">${i.qtd}</span>
+            <button class="ctrl-btn" onclick="alterarQtd(${p.id},1)">+</button>
+            <button class="item-remover" onclick="removerItem(${p.id})">🗑</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Status e botão
+  const status = document.getElementById('carrinho-status');
+  const btnFechar = document.getElementById('btn-fechar-pedido');
+
+  if(total===0){
+    status.className='carrinho-status status-minimo';
+    status.innerHTML='Adicione produtos para começar.';
+    btnFechar.disabled=true;
+  } else if(total < MINIMO){
+    const falta = MINIMO - total;
+    status.className='carrinho-status status-minimo';
+    status.innerHTML=`⚠️ Falta ${formatarPreco(falta)} para atingir o pedido mínimo de ${formatarPreco(MINIMO)}.`;
+    btnFechar.disabled=true;
+  } else if(total < LIMITE_FIADO){
+    status.className='carrinho-status status-fiado';
+    status.innerHTML=`✅ Pedido no fiado liberado!<br>Você precisará enviar comprovante de residência.`;
+    btnFechar.disabled=false;
+  } else if(total <= MAXIMO){
+    const metade = total/2;
+    status.className='carrinho-status status-avista';
+    status.innerHTML=`💳 Pedido nessa faixa exige <strong>metade à vista no PIX</strong>.<br>Valor a pagar agora: <strong>${formatarPreco(metade)}</strong>`;
+    btnFechar.disabled=false;
+  } else {
+    status.className='carrinho-status status-maximo';
+    status.innerHTML=`🚫 Limite de ${formatarPreco(MAXIMO)} atingido. Remova itens para continuar.`;
+    btnFechar.disabled=true;
+  }
+}
+
+function alterarQtd(id, delta){
+  const item = carrinho.find(i=>i.id===id);
+  if(!item) return;
+  const p = getProdutoPorId(id);
+  if(delta>0){
+    const novoTotal = calcularTotal() + p.preco;
+    if(novoTotal > MAXIMO) return;
+  }
+  item.qtd += delta;
+  if(item.qtd<=0) carrinho = carrinho.filter(i=>i.id!==id);
+  atualizarCarrinho();
+}
+
+function removerItem(id){
+  carrinho = carrinho.filter(i=>i.id!==id);
+  atualizarCarrinho();
+}
+
+function abrirCarrinho(){
+  document.getElementById('carrinho-overlay').classList.add('aberto');
+  document.body.style.overflow='hidden';
+}
+
+function fecharCarrinho(){
+  document.getElementById('carrinho-overlay').classList.remove('aberto');
+  document.body.style.overflow='';
+}
+
+// ── MODAL DADOS ──────────────────────────────────────────────
+function abrirModalDados(){
+  const total = calcularTotal();
+  const label = document.getElementById('modal-pagamento-label');
+  const info = document.getElementById('pagamento-info');
+
+  if(total < LIMITE_FIADO){
+    label.textContent = 'Pagamento: Fiado';
+    info.innerHTML = '📋 <strong>Compra no fiado.</strong> Após enviar o pedido, entraremos em contato pelo WhatsApp solicitando uma foto do seu comprovante de residência (conta de luz, água ou telefone) para liberar a entrega.';
+  } else {
+    const metade = total/2;
+    label.textContent = 'Pagamento: Metade à vista';
+    info.innerHTML = '💳 Você precisará pagar <strong>'+formatarPreco(metade)+'</strong> no PIX antes da entrega.';
+  }
+
+  fecharCarrinho();
+  document.getElementById('modal-dados').classList.add('aberto');
+  document.body.style.overflow='hidden';
+}
+
+function fecharModalDados(){
+  document.getElementById('modal-dados').classList.remove('aberto');
+  document.body.style.overflow='';
+  document.getElementById('form-pedido').reset();
+  document.querySelectorAll('.campo-erro').forEach(e=>e.textContent='');
+}
+
+document.getElementById('form-pedido').addEventListener('submit',function(e){
+  e.preventDefault();
+  let ok=true;
+  document.querySelectorAll('.campo-erro').forEach(e=>e.textContent='');
+  ['nome','telefone','endereco'].forEach(function(c){
+    const el=document.getElementById('campo-'+c);
+    if(el&&!el.value.trim()){document.getElementById('erro-'+c).textContent='Campo obrigatório.';ok=false;}
+  });
+  if(!ok) return;
+
+  const nome=document.getElementById('campo-nome').value.trim();
+  const telefone=document.getElementById('campo-telefone').value.trim();
+  const endereco=document.getElementById('campo-endereco').value.trim();
+  const obs=document.getElementById('campo-obs').value.trim();
+  const total=calcularTotal();
+  const pagamento=total<LIMITE_FIADO?'Fiado — enviar comprovante de residência':'Metade à vista no PIX ('+formatarPreco(total/2)+')';
+
+  let itens='';
+  carrinho.forEach(function(i){
+    const p=getProdutoPorId(i.id);
+    itens+='  • '+p.nome+' x'+i.qtd+' = '+formatarPreco(p.preco*i.qtd)+'\n';
+  });
+
+  let msg='🛍️ *Novo Pedido - SA Enxovais!*\n\n'
+    +'👤 *Nome:* '+nome+'\n'
+    +'📱 *Telefone:* '+telefone+'\n'
+    +'📍 *Endereço:* '+endereco+'\n\n'
+    +'📦 *Itens do pedido:*\n'+itens+'\n'
+    +'💰 *Total:* '+formatarPreco(total)+'\n'
+    +'💳 *Pagamento:* '+pagamento+'\n';
+  if(obs) msg+='📝 *Obs:* '+obs+'\n';
+
+  window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(msg),'_blank');
+  setTimeout(function(){window.location.href='obrigado.html';},800);
+});
+
+// INIT
+renderizarProdutos(PRODUTOS);
+atualizarCarrinho();
+</script>
+</body>
+</html>

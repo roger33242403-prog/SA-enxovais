@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SA Enxovais — Pedido Recebido</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--ouro:#C9A84C;--ouro-escuro:#9A7730;--escuro-1:#0D0D0D;--escuro-2:#141414;--escuro-3:#1C1C1C;--escuro-4:#252525;--texto:#E8E0D0;--texto-suave:#A09880;--branco:#F5F0E8;--fonte-titulo:'Cormorant Garamond',serif;--fonte-corpo:'Jost',sans-serif;--verde:#4ade80;--vermelho:#e57373}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--escuro-1);color:var(--texto);font-family:var(--fonte-corpo);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;-webkit-font-smoothing:antialiased}
+    .logo{font-family:var(--fonte-titulo);font-size:1.6rem;font-weight:700;color:var(--ouro);text-align:center;margin-bottom:32px}
+    .logo span{display:block;font-size:0.45em;font-weight:300;letter-spacing:0.3em;color:var(--texto-suave);text-transform:uppercase;margin-top:2px}
+    .card{background:var(--escuro-2);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:32px 24px;width:100%;max-width:480px;text-align:center}
+    .icone{font-size:3.5rem;margin-bottom:16px;display:block}
+    .titulo{font-family:var(--fonte-titulo);font-size:2rem;font-weight:600;color:var(--branco);margin-bottom:8px;line-height:1.2}
+    .subtitulo{font-size:0.9rem;color:var(--texto-suave);margin-bottom:24px;line-height:1.6}
+    .info-box{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:16px;margin-bottom:20px;text-align:left}
+    .info-box p{font-size:0.85rem;color:var(--texto-suave);line-height:1.7}
+    .info-box strong{color:var(--ouro)}
+    .pix-box{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:16px;margin-bottom:20px;text-align:center}
+    .pix-label{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--texto-suave);margin-bottom:6px}
+    .pix-chave{font-family:var(--fonte-titulo);font-size:1.1rem;color:var(--ouro);font-weight:600;word-break:break-all}
+    .upload-area{border:2px dashed rgba(201,168,76,0.3);border-radius:8px;padding:24px;margin-bottom:20px;cursor:pointer;transition:all 0.3s ease;position:relative}
+    .upload-area:hover{border-color:var(--ouro);background:rgba(201,168,76,0.04)}
+    .upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .upload-icone{font-size:2rem;margin-bottom:8px;display:block}
+    .upload-texto{font-size:0.85rem;color:var(--texto-suave)}
+    .upload-preview{width:100%;max-height:200px;object-fit:contain;border-radius:6px;margin-top:12px;display:none}
+    .btn{width:100%;padding:14px;border:none;border-radius:6px;font-family:var(--fonte-corpo);font-size:1rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}
+    .btn-ouro{background:linear-gradient(135deg,var(--ouro),var(--ouro-escuro));color:var(--escuro-1)}
+    .btn-ouro:hover{filter:brightness(1.1);transform:translateY(-1px)}
+    .btn-ouro:disabled{background:var(--escuro-4);color:var(--texto-suave);cursor:not-allowed;transform:none;filter:none}
+    .btn-wpp{background:#25D366;color:#fff}
+    .btn-wpp:hover{background:#1ebe5d}
+    .btn-voltar{background:var(--escuro-3);color:var(--texto-suave);border:1px solid rgba(201,168,76,0.15)}
+    .btn-voltar:hover{border-color:var(--ouro);color:var(--ouro)}
+    .sucesso-box{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:8px;padding:16px;margin-bottom:20px;display:none}
+    .sucesso-box p{font-size:0.85rem;color:var(--verde);line-height:1.6}
+    .erro-box{background:rgba(229,115,115,0.08);border:1px solid rgba(229,115,115,0.25);border-radius:8px;padding:16px;margin-bottom:20px;display:none}
+    .erro-box p{font-size:0.85rem;color:var(--vermelho);line-height:1.6}
+    .separador{display:flex;align-items:center;gap:12px;margin:20px 0}
+    .separador::before,.separador::after{content:'';flex:1;height:1px;background:rgba(201,168,76,0.15)}
+    .separador span{color:var(--ouro);font-size:0.9rem}
+    .status-aprovado{color:var(--verde)}
+    .status-pendente{color:var(--ouro)}
+    .status-erro{color:var(--vermelho)}
+    .pagamento-confirmado{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:8px;padding:16px;margin-bottom:20px}
+    .pagamento-confirmado p{font-size:0.85rem;color:var(--verde);line-height:1.6}
+    .dados-pedido{background:var(--escuro-3);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:16px;margin-bottom:20px;text-align:left}
+    .dados-pedido p{font-size:0.82rem;color:var(--texto-suave);line-height:1.8}
+    .dados-pedido strong{color:var(--branco)}
+  </style>
+</head>
+<body>
+
+<div class="logo">SA Enxovais<span>Cama · Mesa · Banho</span></div>
+
+<div class="card" id="card-conteudo">
+  <!-- Conteúdo dinâmico via JS -->
+</div>
+
+<script>
+const WHATSAPP = '5537998217693';
+
+function params(){
+  const p = new URLSearchParams(window.location.search);
+  return { tipo: p.get('tipo') || 'fiado', status: p.get('status') || '' };
+}
+
+function getPedido(){
+  try { return JSON.parse(sessionStorage.getItem('pedido') || '{}'); } catch(e){ return {}; }
+}
+
+function montarMsgWhatsapp(pedido, extra){
+  let msg = '🛍️ *' + (extra.titulo || 'Pedido') + ' - SA Enxovais!*\n\n';
+  if(pedido.nome) msg += '👤 *Nome:* ' + pedido.nome + '\n';
+  if(pedido.telefone) msg += '📱 *Telefone:* ' + pedido.telefone + '\n';
+  if(pedido.endereco) msg += '📍 *Endereço:* ' + pedido.endereco + '\n\n';
+  if(pedido.itens) msg += '📦 *Itens:*\n' + pedido.itens + '\n';
+  if(pedido.total) msg += '💰 *Total:* ' + pedido.total + '\n';
+  if(pedido.pagamento) msg += '💳 *Pagamento:* ' + pedido.pagamento + '\n';
+  if(extra.obs) msg += '\n' + extra.obs;
+  return msg;
+}
+
+function abrirWhatsApp(msg){
+  window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function renderizarFiado(){
+  const card = document.getElementById('card-conteudo');
+  card.innerHTML = `
+    <span class="icone">📋</span>
+    <h1 class="titulo">Pedido Recebido!</h1>
+    <p class="subtitulo">Sua compra no fiado foi registrada. Para confirmar, envie uma foto do comprovante de residência.</p>
+
+    <div class="info-box">
+      <p>📄 Aceitos: <strong>conta de água, luz, gás ou internet</strong> com seu nome e endereço.</p>
+    </div>
+
+    <div class="upload-area" id="upload-area">
+      <input type="file" accept="image/*" id="input-comprovante" onchange="previewImagem(this)"/>
+      <span class="upload-icone">📎</span>
+      <p class="upload-texto">Toque aqui para anexar o comprovante de residência</p>
+      <img class="upload-preview" id="preview-img" src="" alt="preview"/>
+    </div>
+
+    <div class="sucesso-box" id="sucesso-box">
+      <p>✅ <strong>Comprovante enviado!</strong> Entraremos em contato para combinar a entrega.</p>
+    </div>
+
+    <div class="erro-box" id="erro-box">
+      <p id="erro-texto">❌ Erro ao enviar. Tente novamente.</p>
+    </div>
+
+    <button class="btn btn-ouro" id="btn-enviar" onclick="enviarComprovanteFiado()" disabled>
+      📤 Enviar comprovante
+    </button>
+
+    <button class="btn btn-voltar" onclick="window.location.href='index.html'">
+      ← Voltar à loja
+    </button>
+  `;
+}
+
+function renderizarMetadeAvista(){
+  const pedido = getPedido();
+  const card = document.getElementById('card-conteudo');
+
+  // Calcula valor restante
+  let totalOriginal = '';
+  let metadePaga = '';
+  if(pedido.pagamento){
+    const match = pedido.pagamento.match(/R\$\s*([\d,.]+)/g);
+    if(match && match.length >= 2){
+      metadePaga = match[0];
+      totalOriginal = match[1];
+    }
+  }
+
+  card.innerHTML = `
+    <span class="icone">💳</span>
+    <h1 class="titulo">Quase lá!</h1>
+    <p class="subtitulo">Pague a metade agora no PIX para confirmar seu pedido. O restante você paga na entrega.</p>
+
+    <div class="pix-box">
+      <p class="pix-label">Chave PIX (CNPJ)</p>
+      <p class="pix-chave">56.026.973/0001-54</p>
+    </div>
+
+    <div class="info-box">
+      <p>💰 Valor a pagar agora: <strong>${metadePaga || 'conforme combinado'}</strong></p>
+      <p>🚚 Restante pago na entrega: <strong>${totalOriginal || 'conforme combinado'}</strong></p>
+    </div>
+
+    <div class="separador"><span>✦</span></div>
+
+    <p style="font-size:0.85rem;color:var(--texto-suave);margin-bottom:16px">Após fazer o PIX, anexe o comprovante abaixo:</p>
+
+    <div class="upload-area" id="upload-area">
+      <input type="file" accept="image/*" id="input-comprovante" onchange="previewImagem(this)"/>
+      <span class="upload-icone">📎</span>
+      <p class="upload-texto">Toque aqui para anexar o comprovante de PIX</p>
+      <img class="upload-preview" id="preview-img" src="" alt="preview"/>
+    </div>
+
+    <div class="sucesso-box" id="sucesso-box">
+      <p>✅ <strong>Comprovante enviado!</strong> Entraremos em contato para combinar a entrega.</p>
+    </div>
+
+    <div class="erro-box" id="erro-box">
+      <p id="erro-texto">❌ Erro ao enviar. Tente novamente.</p>
+    </div>
+
+    <button class="btn btn-ouro" id="btn-enviar" onclick="enviarComprovantePix()" disabled>
+      📤 Enviar comprovante do PIX
+    </button>
+
+    <button class="btn btn-voltar" onclick="window.location.href='index.html'">
+      ← Voltar à loja
+    </button>
+  `;
+}
+
+function renderizarPagamentoAprovado(tipo){
+  const pedido = getPedido();
+  const card = document.getElementById('card-conteudo');
+
+  const isMetade = tipo === 'metade';
+  const titulo = isMetade ? 'Metade Paga!' : 'Pagamento Confirmado!';
+  const icone = '✅';
+  const obs = isMetade
+    ? '⚠️ *Restante será cobrado na entrega*'
+    : '✅ *Pagamento total confirmado via Mercado Pago*';
+
+  // Manda WhatsApp automaticamente
+  const msg = montarMsgWhatsapp(pedido, {
+    titulo: '💰 Pagamento Aprovado',
+    obs: obs
+  });
+
+  // Dispara automaticamente após 1 segundo
+  setTimeout(function(){ abrirWhatsApp(msg); }, 1000);
+
+  card.innerHTML = `
+    <span class="icone">${icone}</span>
+    <h1 class="titulo">${titulo}</h1>
+    <p class="subtitulo">${isMetade ? 'A metade foi paga com sucesso! O restante será cobrado na entrega.' : 'Seu pagamento foi confirmado! Em breve entraremos em contato para combinar a entrega.'}</p>
+
+    <div class="pagamento-confirmado">
+      <p>✅ <strong>Pagamento aprovado no Mercado Pago</strong></p>
+      ${isMetade ? '<p>🚚 O restante será cobrado na entrega</p>' : ''}
+    </div>
+
+    ${pedido.nome ? `
+    <div class="dados-pedido">
+      <p><strong>👤 Nome:</strong> ${pedido.nome}</p>
+      <p><strong>📍 Endereço:</strong> ${pedido.endereco || '—'}</p>
+      <p><strong>💰 Total:</strong> ${pedido.total || '—'}</p>
+    </div>` : ''}
+
+    <div class="info-box">
+      <p>📱 Os dados do seu pedido foram enviados automaticamente para nosso WhatsApp. <strong>Em breve entraremos em contato!</strong></p>
+    </div>
+
+    <button class="btn btn-wpp" onclick="reenviarWhatsApp('${tipo}')">
+      💬 Reenviar dados pelo WhatsApp
+    </button>
+
+    <button class="btn btn-voltar" onclick="window.location.href='index.html'">
+      ← Voltar à loja
+    </button>
+  `;
+}
+
+function renderizarPagamentoErro(){
+  const card = document.getElementById('card-conteudo');
+  card.innerHTML = `
+    <span class="icone">❌</span>
+    <h1 class="titulo" style="color:var(--vermelho)">Pagamento não concluído</h1>
+    <p class="subtitulo">Houve um problema com seu pagamento. Tente novamente ou entre em contato.</p>
+
+    <div class="erro-box" style="display:block">
+      <p>O pagamento foi cancelado ou recusado. Nenhum valor foi cobrado.</p>
+    </div>
+
+    <button class="btn btn-ouro" onclick="window.history.back()">
+      ↩ Tentar novamente
+    </button>
+
+    <button class="btn btn-wpp" onclick="window.open('https://wa.me/${WHATSAPP}','_blank')">
+      💬 Falar no WhatsApp
+    </button>
+
+    <button class="btn btn-voltar" onclick="window.location.href='index.html'">
+      ← Voltar à loja
+    </button>
+  `;
+}
+
+function renderizarPagamentoPendente(){
+  const card = document.getElementById('card-conteudo');
+  card.innerHTML = `
+    <span class="icone">⏳</span>
+    <h1 class="titulo" style="color:var(--ouro)">Pagamento Pendente</h1>
+    <p class="subtitulo">Seu pagamento está sendo processado. Assim que confirmado, entraremos em contato.</p>
+
+    <div class="info-box">
+      <p>⏰ Pagamentos via PIX são confirmados em instantes. Boleto pode levar até <strong>1 dia útil</strong>.</p>
+    </div>
+
+    <button class="btn btn-wpp" onclick="window.open('https://wa.me/${WHATSAPP}','_blank')">
+      💬 Falar no WhatsApp
+    </button>
+
+    <button class="btn btn-voltar" onclick="window.location.href='index.html'">
+      ← Voltar à loja
+    </button>
+  `;
+}
+
+function previewImagem(input){
+  const file = input.files[0];
+  if(!file) return;
+  const preview = document.getElementById('preview-img');
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = 'block';
+  document.getElementById('btn-enviar').disabled = false;
+  document.getElementById('upload-area').style.borderColor = 'var(--ouro)';
+}
+
+function enviarComprovanteFiado(){
+  const pedido = getPedido();
+  const file = document.getElementById('input-comprovante').files[0];
+  if(!file){ mostrarErro('Anexe uma foto do comprovante de residência.'); return; }
+
+  const btn = document.getElementById('btn-enviar');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  const msg = montarMsgWhatsapp(pedido, {
+    titulo: '📋 Pedido Fiado + Comprovante',
+    obs: '📎 *Comprovante de residência em anexo*'
+  });
+
+  abrirWhatsApp(msg);
+
+  setTimeout(function(){
+    document.getElementById('sucesso-box').style.display = 'block';
+    btn.textContent = '✅ Enviado!';
+  }, 800);
+}
+
+function enviarComprovantePix(){
+  const pedido = getPedido();
+  const file = document.getElementById('input-comprovante').files[0];
+  if(!file){ mostrarErro('Anexe uma foto do comprovante de PIX.'); return; }
+
+  const btn = document.getElementById('btn-enviar');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  const msg = montarMsgWhatsapp(pedido, {
+    titulo: '💳 Metade à Vista — Comprovante PIX',
+    obs: '📎 *Comprovante de PIX em anexo*\n⚠️ *Restante será cobrado na entrega*'
+  });
+
+  abrirWhatsApp(msg);
+
+  setTimeout(function(){
+    document.getElementById('sucesso-box').style.display = 'block';
+    btn.textContent = '✅ Enviado!';
+  }, 800);
+}
+
+function reenviarWhatsApp(tipo){
+  const pedido = getPedido();
+  const obs = tipo === 'metade'
+    ? '✅ *Metade paga via Mercado Pago*\n⚠️ *Restante na entrega*'
+    : '✅ *Pagamento total confirmado via Mercado Pago*';
+  const msg = montarMsgWhatsapp(pedido, { titulo: '💰 Pagamento Aprovado', obs: obs });
+  abrirWhatsApp(msg);
+}
+
+function mostrarErro(texto){
+  const box = document.getElementById('erro-box');
+  const el = document.getElementById('erro-texto');
+  if(el) el.textContent = '❌ ' + texto;
+  if(box) box.style.display = 'block';
+}
+
+// INIT — decide qual tela mostrar
+(function(){
+  const { tipo, status } = params();
+
+  if(tipo === 'fiado'){
+    renderizarFiado();
+  } else if(status === 'aprovado'){
+    renderizarPagamentoAprovado(tipo);
+  } else if(status === 'pendente'){
+    renderizarPagamentoPendente();
+  } else if(status === 'erro'){
+    renderizarPagamentoErro();
+  } else if(tipo === 'metade'){
+    // Chegou sem status — mostra tela de PIX manual
+    renderizarMetadeAvista();
+  } else {
+    // Fallback
+    renderizarFiado();
+  }
+})();
+</script>
+
+</body>
+</html>

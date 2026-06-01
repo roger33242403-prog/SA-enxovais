@@ -18,7 +18,7 @@ exports.handler = async function(event) {
 
   try {
     const dados = JSON.parse(event.body);
-    const { nome, telefone, itens, total, tipo } = dados;
+    const { nome, telefone, itens, total, tipo, metodo } = dados;
 
     const itensMp = itens.map(item => ({
       id: String(item.id),
@@ -30,16 +30,31 @@ exports.handler = async function(event) {
 
     const baseUrl = 'https://roger33242403-prog.github.io/SA-enxovais';
 
+    let paymentMethods;
+    if(metodo === 'pix'){
+      paymentMethods = {
+        excluded_payment_types: [{ id: 'credit_card' }, { id: 'debit_card' }, { id: 'ticket' }],
+        installments: 1
+      };
+    } else if(metodo === 'pix_parcelado'){
+      paymentMethods = {
+        excluded_payment_types: [{ id: 'credit_card' }, { id: 'debit_card' }, { id: 'ticket' }],
+        installments: 12
+      };
+    } else {
+      paymentMethods = {
+        excluded_payment_types: [{ id: 'account_money' }, { id: 'ticket' }],
+        installments: 12
+      };
+    }
+
     const preferencia = {
       items: itensMp,
       payer: {
         name: nome,
         phone: { number: telefone.replace(/[^0-9]/g, '') }
       },
-      payment_methods: {
-        excluded_payment_types: [],
-        installments: 1
-      },
+      payment_methods: paymentMethods,
       back_urls: {
         success: baseUrl + '/obrigado.html?tipo=' + tipo + '&status=aprovado',
         failure: baseUrl + '/obrigado.html?tipo=' + tipo + '&status=erro',
@@ -105,4 +120,4 @@ function chamarMercadoPago(preferencia) {
     req.write(corpo);
     req.end();
   });
-      }
+}

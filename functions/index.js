@@ -30,51 +30,39 @@ exports.criarPagamento = functions.https.onRequest((req, res) => {
 
   let paymentMethods;
   if (metodo === "pix") {
-    paymentMethods = { excluded_payment_
-
-cat > functions/index.js << 'EOF'
-const functions = require("firebase-functions");
-const https = require("https");
-
-exports.criarPagamento = functions.https.onRequest((req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.set("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") {
-    res.status(200).send("");
-    return;
-  }
-
-  if (req.method !== "POST") {
-    res.status(405).json({ erro: "Método não permitido" });
-    return;
-  }
-
-  const { nome, telefone, itens, total, tipo, metodo } = req.body;
-
-  const itensMp = itens.map((item) => ({
-    id: String(item.id),
-    title: item.nome,
-    quantity: item.qtd,
-    unit_price: item.preco,
-    currency_id: "BRL",
-  }));
-
-  const baseUrl = "https://roger33242403-prog.github.io/SA-enxovais";
-
-  let paymentMethods;
-  if (metodo === "pix") {
-    paymentMethods = { excluded_payment_types: [{ id: "credit_card" }, { id: "debit_card" }, { id: "ticket" }], installments: 1 };
+    paymentMethods = {
+      excluded_payment_types: [
+        { id: "credit_card" },
+        { id: "debit_card" },
+        { id: "ticket" },
+      ],
+      installments: 1,
+    };
   } else if (metodo === "pix_parcelado") {
-    paymentMethods = { excluded_payment_types: [{ id: "credit_card" }, { id: "debit_card" }, { id: "ticket" }], installments: 12 };
+    paymentMethods = {
+      excluded_payment_types: [
+        { id: "credit_card" },
+        { id: "debit_card" },
+        { id: "ticket" },
+      ],
+      installments: 12,
+    };
   } else {
-    paymentMethods = { excluded_payment_types: [{ id: "account_money" }, { id: "ticket" }], installments: 12 };
+    paymentMethods = {
+      excluded_payment_types: [
+        { id: "account_money" },
+        { id: "ticket" },
+      ],
+      installments: 12,
+    };
   }
 
   const preferencia = {
     items: itensMp,
-    payer: { name: nome, phone: { number: telefone.replace(/[^0-9]/g, "") } },
+    payer: {
+      name: nome,
+      phone: { number: telefone.replace(/[^0-9]/g, "") },
+    },
     payment_methods: paymentMethods,
     back_urls: {
       success: baseUrl + "/obrigado.html?tipo=" + tipo + "&status=aprovado",

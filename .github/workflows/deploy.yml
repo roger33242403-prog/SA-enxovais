@@ -18,3 +18,4 @@ jobs:
       - run: firebase deploy --only functions --project sa-enxovais
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/sa.json
+          MP_ACCESS_TOKEN: ${{ secrets.MP_ACCESS_TOKEN }}

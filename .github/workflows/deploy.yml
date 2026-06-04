@@ -14,4 +14,7 @@ jobs:
           node-version: '22'
       - run: npm install -g firebase-tools
       - run: cd functions && npm install
-      - run: firebase deploy --only functions --token "${{ secrets.FIREBASE_TOKEN }}" --project sa-enxovais
+      - run: echo '${{ secrets.GOOGLE_CREDENTIALS }}' > /tmp/sa.json
+      - run: firebase deploy --only functions --project sa-enxovais
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/sa.json
